@@ -1,0 +1,75 @@
+openapi: 3.0.0
+info:
+  title: Review API Documentation
+  description: This document provides details about the Review API endpoints and their functionalities.
+  version: 1.0.0
+paths:
+  /reviews/products/{productId}/visible:
+    get:
+      summary: Check if a product is visible.
+      parameters:
+        - name: productId
+          in: path
+          description: ID of the product.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: boolean
+  /reviews/products/{productId}/users/{userId}/allowed:
+    get:
+      summary: Check if a user is allowed to comment on a product.
+      parameters:
+        - name: productId
+          in: path
+          description: ID of the product.
+          required: true
+          schema:
+            type: integer
+        - name: userId
+          in: path
+          description: ID of the user.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: boolean
+  /reviews/comments:
+    post:
+      summary: Add a new comment.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentDto'
+components:
+  schemas:
+    CommentDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        text:
+          type: string
+        productId:
+          type: integer
+        userId:
+          type: integer

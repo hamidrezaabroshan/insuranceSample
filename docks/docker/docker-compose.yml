@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  mysql:
+    ports:
+      - 3306:3306
+
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=dsm-batch
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+
+
+    volumes:
+      - mysql:/var/lib/mysql
+
+volumes:
+  mysql:
